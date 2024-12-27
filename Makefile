@@ -5,6 +5,7 @@
 # Compiler settings - Can be customized.
 CC = g++
 CXXFLAGS = -std=c++11 -Wall
+# CXXFLAGS += -pthread
 LDFLAGS = 
 
 # Makefile settings - Can be customized.
@@ -14,7 +15,16 @@ SRCDIR = D:\Projects\cplusplus\cplusplus
 OBJDIR = obj
 
 ############## Do not change anything from here downwards! #############
-SRC = $(wildcard $(SRCDIR)/*$(EXT))
+# SRC = $(wildcard $(SRCDIR)/*$(EXT))
+# Update the SRC variable to include files from the OopsConcept directory
+SRC = $(wildcard $(SRCDIR)/*$(EXT)) \
+      $(wildcard $(SRCDIR)/OopsConcept/*.cpp) \
+      $(wildcard $(SRCDIR)/src/*.cpp)
+
+
+
+# SRC = $(wildcard $(SRCDIR)/**/*.cpp)  # Recursively search for .cpp files
+
 OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
 DEP = $(OBJ:$(OBJDIR)/%.o=%.d)
 # UNIX-based OS variables & settings
