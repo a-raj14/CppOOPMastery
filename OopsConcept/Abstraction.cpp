@@ -1,22 +1,15 @@
 #include <iostream>
-using namespace std;
+#include <cstring>
+#include "../include/oppsFileInclude/Abstraction.h"
 
-// tuple<int,string>
-
-void main_local()
-{
-    cout << "Testing other files....." << endl;
+AbstractedPerson::AbstractedPerson(const char* name, int id) {
+    // Assign values to name and id
+    strncpy(this->name, name, sizeof(this->name) - 1);  // Ensure no buffer overflow
+    this->name[sizeof(this->name) - 1] = '\0';          // Null terminate the string
+    this->id = id;
 }
 
-class Abstractedperson
-{
-    char name[20];
-    int id;
-
-public:
-    void getdetails()
-    {
-        std::cout << name << endl;
-        std::cout << id << endl;
-    }
-};
+void AbstractedPerson::getdetails() const {
+    std::cout << "Name: " << name << std::endl;
+    std::cout << "ID: " << id << std::endl;
+}
