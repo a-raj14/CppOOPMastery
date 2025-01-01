@@ -1,0 +1,52 @@
+C++ Mastery Design Doc
+
+Flow start from - Main.cpp file.
+
+For logging purpose use-
+debug.print
+debug.debug
+info.info
+error.error
+
+To get rid of opening and closing formatting in code you can set project 
+environment to dev.
+E.g.
+/* 
+===============================
+   Welcome to C++ OOP Mastery
+===============================
+
+Please hold on...
+
+Getting things ready for your OOP adventure... 
+
+===============================
+   All systems are go! <3
+===============================
+Program execution started.*/
+
+Go to Environment.cpp file and change 
+static Environment currentEnv = Environment::Prod;  
+to
+static Environment currentEnv = Environment::Dev;  
+This will directly run the main code.
+
+To include header file prefer global.h as it include all imp file and local header file.
+
+
+Extension:
+1. Gitlens
+2. C++
+3. Makefile
+4. Office Add.
+5. vscode pandoc -- not worked on my system
+6. vdcodepdf view
+
+Imp link - 
+https://www.youtube.com/watch?v=whQQF4kVjPY&t=485s&pp=ygUfaG93IHRvIHNldHVwIG1ha2VmaWxlIGluIHZzY29kZQ%3D%3D
+https://www.youtube.com/watch?v=eGaImwD8fPQ&t=438s&pp=ygUYc2V0IHVwIHByb2plY3QgaW4gZ2l0aHVi
+https://www.youtube.com/watch?v=x4b46DzclzY&pp=ygUbaG93IHRvIHVzZSBtc3dvcmQgaW4gdnNjb2Rl
+
+Imp Commands-
+cntr + shift + p - vscode
+cntr + p - search file
