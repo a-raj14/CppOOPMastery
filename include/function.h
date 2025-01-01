@@ -4,6 +4,7 @@
 void checkEncapsulatedData();
 void checkAbstractedData();
 void checkPolymorphismData();
+void callStudyMethods();
 
 // ... other functions
 

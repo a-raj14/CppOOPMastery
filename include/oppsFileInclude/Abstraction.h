@@ -1,6 +1,5 @@
 #ifndef ABSTRACTION_H
 #define ABSTRACTION_H
-
 #include <iostream>
 
 class AbstractedPerson {
