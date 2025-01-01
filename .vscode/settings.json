@@ -42,7 +42,10 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "thread": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "ratio": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

@@ -1,141 +1,158 @@
+#include "include/global.h"
+#include "include/MainApp.h"
 #include <iostream>
-#include "include/oops.h"
-#include "include/logger.h"
-#include "include/function.h"
 #include <chrono>
 #include <thread>
 #ifdef _WIN32
-#include <windows.h>  // For Sleep on Windows
+#include <windows.h>
 #else
-#include <unistd.h>  // For sleep on non-Windows platforms (e.g., Linux, macOS)
+#include <unistd.h>
 #endif
+
+MainApp& MainApp::getInstance() {
+    static MainApp instance;
+    return instance;
+}
+
+void MainApp::typeEffect(const std::string& colorCode, const std::string& message, int delay) {
+    std::cout << colorCode;
+    for (char c : message) {
+        std::cout << c << std::flush;
+        #ifdef _WIN32
+        Sleep(delay);
+        #else
+        std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+        #endif
+    }
+    std::cout << RESET;
+}
 
 void waitForDelay(int delay_seconds) {
     #ifdef _WIN32
-    Sleep(delay_seconds * 1000);  // Sleep takes milliseconds in Windows
-#else
-    std::this_thread::sleep_for(std::chrono::seconds(delay_seconds));  // Cross-platform sleep
-#endif
-    
+    Sleep(delay_seconds * 1000);
+    #else
+    std::this_thread::sleep_for(std::chrono::seconds(delay_seconds));
+    #endif
 }
 
-void manualDealy(int delay_seconds)
-{
-    auto start_time = std::chrono::high_resolution_clock::now();
-    
-    while (true) {
-        // Get the current time
-        auto current_time = std::chrono::high_resolution_clock::now();
-        
-        // Calculate elapsed time
-        std::chrono::duration<int> elapsed_seconds = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_time);
-        
-        // If the delay time has passed, break the loop
-        if (elapsed_seconds.count() >= delay_seconds) {
-            break;
-        }
-    }
+std::string rockEmoji() {
+    return "<3";
+}
+
+std::string smileEmoji() {
+    return "^_^";
 }
 
 void displayWelcomeMessage() {
+    MainApp& app = MainApp::getInstance();  // Use Singleton instance
     std::cout << "\n\n";
-    std::cout << "===============================" << std::endl;
-    std::cout << "   Welcome to C++ OOP Mastery   " << std::endl;
-    std::cout << "===============================" << std::endl;
-    
-    waitForDelay(1);  // Wait for 1 second before continuing
+    std::cout << GREEN << "===============================\n";
+    std::cout << CYAN << "   Welcome to C++ OOP Mastery   \n";
+    std::cout << GREEN << "===============================\n" << RESET;
 
-    std::cout << "\nPlease hold on...\n";
-    std::cout << "Getting things ready for your OOP adventure...\n";
+    waitForDelay(1);
+    app.typeEffect(YELLOW, "\nPlease hold on...\n", 50);
+    app.typeEffect(YELLOW, "\nGetting things ready for your OOP adventure... \n", 50);
+    waitForDelay(1);
 
-    waitForDelay(2);  // Wait for 2 seconds
+    std::cout << GREEN << "\n===============================\n";
+    std::cout << MAGENTA << "   All systems are go! " << rockEmoji() << "   \n";
+    std::cout << GREEN << "===============================\n" << RESET;
 
-    std::cout << "\n===============================" << std::endl;
-    std::cout << "   All systems are go! 🚀   " << std::endl;
-    std::cout << "===============================" << std::endl;
-
-    waitForDelay(1);  // Wait for 1 second before the final message
-
-    std::cout << "Program execution started.\n";
+    waitForDelay(1);
+    app.typeEffect(CYAN, "Program execution started.\n", 30);
     std::cout << "Let's dive into the world of C++ OOP!\n";
 }
 
-void askUserWhatToLearn() {
+
+void printThankYou() {
+    MainApp& app = MainApp::getInstance();  // Use Singleton instance
+
+    std::cout << "called" << std::endl;
+    std::cout << GREEN;
+    std::cout << "\n***************************\n";
+    std::cout << " *  " << YELLOW << "T H A N K  Y O U !" << GREEN << "  *\n";
+    std::cout << "***************************\n" << RESET;
+
+    app.typeEffect(CYAN, "\nWishing you ", 20);
+    app.typeEffect(MAGENTA, "success ", 20);
+    app.typeEffect(CYAN, "and ", 20);
+    app.typeEffect(YELLOW, "growth ", 20);
+    app.typeEffect(CYAN, "ahead!\n", 20);
+
+    app.typeEffect(MAGENTA, "\nStay curious, stay learning!  " + smileEmoji() + "\n", 30);
+}
+
+
+void askUserToNotes()
+{
+    std::cout << "\n Do you want to get Notes for this ? [y/n]" << std::endl;
+    std::string c;
+    cin >> c;
+    if(c == "y" || c == "yes")
+    {
+        std::cout << "Url : " << NotesUrl << std::endl;
+        WebHelper::openURL(NotesUrl);
+
+    }
+    else if(c == "n" || c == "no")
+    {
+        return;
+    }
+    else
+    {
+        askUserToNotes();
+    }
+}
+
+void askUserToRestartStudy()
+{
+    std::cout << "\n Do you want to study more concepts ? [y/n]" << std::endl;
+    std::string c;
+    cin >> c;
+    if(c == "y" || c == "yes")
+    {
+        callStudyMethods();
+    }
+    else if(c == "n" || c == "no")
+    {
+        return;
+    }
+    else
+    {
+        askUserToRestartStudy();
+    }
+}
+
+void callStudyMethods()
+{
+    OOPS oops(askUserWhatToLearn());
+    openUserNeededStudyMaterial(oops);
+}
+
+int askUserWhatToLearn() {
     std::cout << "\nWhat would you like to learn today?\n";
     std::cout << "1. OOP Concepts (Encapsulation, Abstraction, Polymorphism)\n";
     std::cout << "2. Multithreading\n";
     std::cout << "3. Other Topics\n";
-    std::cout << "Please enter your choice (1/2/3): ";
+    std::cout << "Please enter your choice (1/2/3): or for exit press e : ";
 
-    int choice;
+    auto choice = std::string();
     std::cin >> choice;
 
-    if (choice == 1) {
+    if (choice == "1") {
         std::cout << "\nYou chose OOP Concepts!\n";
-    } else if (choice == 2) {
+    } else if (choice == "2") {
         std::cout << "\nMultithreading - Coming Soon!\n";
-    } else if (choice == 3) {
+    } else if (choice == "3") {
         std::cout << "\nExplore other cool topics on the way!\n";
-    } else {
-        std::cout << "\nInvalid choice, please choose a valid option.\n";
-        askUserWhatToLearn();
-    }
-}
-
-int main()
-{
-    displayWelcomeMessage();
-
-    // Ask what the user wants to learn
-    askUserWhatToLearn();
-    debug.log(DEBUG, "Application exeution ended.");
-    return 0;
-    checkEncapsulatedData();
-    std::cout << "Calling Abstracted Data" << std::endl;
-    checkAbstractedData();
-    std::cout << "Calling Polymorphism Data" << std::endl;
-    checkPolymorphismData();
-    return 0;
-}
-
-void checkPolymorphismData()
-{
-    std::cout << "Which polymorphism function you want to know \n Type 1 for Compile time polymorphism or Type 2 for runtime polymorphism" << std::endl;
-    int data;
-    std::cin >> data;
-    if(data == 1)
-    {
-        Polymorphism polymorphism;
-        polymorphism.func(1);
-        polymorphism.func(1, 2);
-        polymorphism.func("ayush", "rajput");
-    }
-    else if(data ==2)
-    {
-        std::cout << "Still under development" << std::endl;
+    } else if (choice == "e") {
+        return 0;
     }
     else
     {
-        std::cout << "Please enter correct value" << endl;
+        std::cout << "\nInvalid choice, please choose a valid option.\n";
+        askUserWhatToLearn();
     }
-}
-
-void checkEncapsulatedData()
-{
-    EncapsulatedPerson person("John Doe", 30);
-
-    cout << "Name: " << person.getName() << std::endl;
-    cout << "Age: " << person.getAge() << std::endl;
-
-    person.setName("Krish");
-    person.setAge(32);
-
-    cout << "Name: " << person.getName() << std::endl;
-    cout << "Age: " << person.getAge() << std::endl;
-}
-
-void checkAbstractedData()
-{
-    AbstractedPerson person("John Doe", 12345);
-    person.getdetails();
+    return std::stoi(choice);
 }

@@ -1,0 +1,5 @@
+The mainapp.d file is a dependency file that is automatically generated during the compilation process when you use the -M or -MD flags with g++ or gcc.
+
+What is mainapp.d?
+It lists all the dependencies of the corresponding source file (mainapp.cpp).
+This helps make or build systems track which files need to be recompiled if any headers (.h files) or other dependencies change.

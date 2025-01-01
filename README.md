@@ -21,42 +21,61 @@ To run this project on your local machine, follow these instructions:
 - **Make** (or equivalent build tools)
 - **IDE/Editor** (such as Visual Studio Code or any C++ supporting editor)
 
-### Installation and Setup
+### 1. Clone the Repository:
+To get started, clone the repository to your local machine using Git:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/a-raj14/CppOOPMastery.git
-Navigate to the project directory:
+```bash
+git clone https://github.com/a-raj14/CppOOPMastery.git
+```
 
-bash
-Copy code
-cd your-repository-name
-Open the project in your favorite IDE or editor, or use the terminal for compilation and execution.
+### 2. Navigate to the Project Directory:
+After cloning the repository, navigate to the project directory:
 
-Compile and Run the Project
-For Windows (MinGW or similar):
-Open Command Prompt or PowerShell in the project directory.
-Run the following command to compile the project:
-bash
-Copy code
+```bash
+cd CppOOPMastery
+```
+
+### 3. Open the Project:
+You can open the project in your favorite IDE or editor. Alternatively, you can use the terminal for compilation and execution.
+
+---
+
+## Compile and Run the Project
+
+### For Windows (MinGW or similar):
+1. Open Command Prompt or PowerShell in the project directory.
+2. Run the following command to compile the project:
+
+```bash
 MinGW32-make
-After the build completes, run the project with:
-bash
-Copy code
+```
+
+3. After the build completes, run the project with:
+
+```bash
 ./MasterCPlusPlus
-For Linux/MacOS:
-Open Terminal in the project directory.
-Run the following command to compile the project:
-bash
-Copy code
+```
+
+### For Linux/MacOS:
+1. Open Terminal in the project directory.
+2. Run the following command to compile the project:
+
+```bash
 make
-After the build completes, run the project with:
-bash
-Copy code
+```
+
+3. After the build completes, run the project with:
+
+```bash
 ./MasterCPlusPlus
-Notes
-Ensure that you have all required dependencies installed before running the project.
-The project uses core C++ features to demonstrate important OOP concepts.
+```
+
+---
+
+## Notes
+- Ensure that you have all the required dependencies installed before running the project.
+- The project uses core C++ features to demonstrate important OOP concepts, such as classes, inheritance, polymorphism, and more.
+
 
 License
 NA.
